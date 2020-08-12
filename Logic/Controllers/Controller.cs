@@ -1,6 +1,7 @@
 ﻿using Logic.Models;
 using Logic.Saver;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Logic.Controllers
@@ -50,6 +51,22 @@ namespace Logic.Controllers
                 {
                     Message($"{acc.Login} - {acc.Password}");
                 }
+            }
+        }
+
+        public void Delete(string service, string login)
+        {
+            bool IsAccountExist = Accounts.Exists(a => (a.Service == service) && (a.Login == login));
+
+            if(IsAccountExist)
+            {
+                UserData account = Accounts.FirstOrDefault(a => (a.Service == service) && (a.Login == login));
+                Accounts.Remove(account);
+                Message("Аккаунт удалён");
+            }
+            else
+            {
+                Message("Такого аккаунта нет в базе данных");
             }
         }
 

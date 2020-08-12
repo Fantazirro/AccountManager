@@ -18,7 +18,8 @@ namespace ConsoleInterface
                 Console.WriteLine(Text.ChooseAction);
                 Console.WriteLine($"1. {Text.AddAccount}");
                 Console.WriteLine($"2. {Text.GetAccounts}");
-                Console.WriteLine($"3. {Text.Exit}");
+                Console.WriteLine($"3. {Text.DeleteAccount}");
+                Console.WriteLine($"4. {Text.Exit}");
                 Console.Write(Text.Enter);
 
                 var answer = Console.ReadKey().Key;
@@ -34,7 +35,12 @@ namespace ConsoleInterface
                     LoadAccounts();
                     Console.Clear();
                 }
-                else if (answer == ConsoleKey.D3) Environment.Exit(0);
+                else if (answer == ConsoleKey.D3)
+                {
+                    DeleteAccount();
+                    Console.Clear();
+                }
+                else if (answer == ConsoleKey.D4) Environment.Exit(0);
                 else
                 {
                     Console.WriteLine(Text.IncorrectInputData);
@@ -68,6 +74,21 @@ namespace ConsoleInterface
 
             Console.Clear();
             controller.Get(service);
+
+            Console.WriteLine($"\n{Text.PressAnyKey}");
+            Console.ReadKey();
+        }
+
+        private void DeleteAccount()
+        {
+            Console.Write(Text.EnterService);
+            string service = Console.ReadLine();
+
+            Console.Write(Text.EnterLogin);
+            string login = Console.ReadLine();
+
+            Console.Clear();
+            controller.Delete(service, login);
 
             Console.WriteLine($"\n{Text.PressAnyKey}");
             Console.ReadKey();
