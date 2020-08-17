@@ -29,8 +29,13 @@ namespace WPFInterface
             addServiceText.Text = Text.EnterService;
             addLoginText.Text = Text.EnterLogin;
             addPassText.Text = Text.EnterPass;
+
             getServiceText.Text = Text.EnterService;
-            getLoginText.Text = Text.EnterLogin;
+            getAccText.Text = Text.GetAccounts;
+
+            deleteAccText.Text = Text.DeleteAccount;
+            deleteServiceText.Text = Text.EnterService;
+            deleteLoginText.Text = Text.EnterLogin;
 
             GetAccount.Content = Text.Get;
             DeleteAccount.Content = Text.Delete;
@@ -54,8 +59,8 @@ namespace WPFInterface
 
         private void DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
-            string service = getServiceField.Text;
-            string login = getLoginField.Text;           
+            string service = deleteServiceField.Text;
+            string login = deleteLoginField.Text;           
            
             controller.Delete(service, login);
 
@@ -78,7 +83,7 @@ namespace WPFInterface
             foreach (var item in accounts)
             {
                 dataTable.Items.Add(new DataGridModel() { Login = item.Key, Password = item.Value });
-            }
+            } 
         }
     }
 }
