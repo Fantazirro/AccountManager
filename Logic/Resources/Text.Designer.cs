@@ -79,6 +79,15 @@ namespace Logic.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Удалить.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Удалить аккаунт.
         /// </summary>
         public static string DeleteAccount {
@@ -129,6 +138,15 @@ namespace Logic.Resources {
         public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Получить.
+        /// </summary>
+        public static string Get {
+            get {
+                return ResourceManager.GetString("Get", resourceCulture);
             }
         }
         

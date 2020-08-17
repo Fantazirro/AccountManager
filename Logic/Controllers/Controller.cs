@@ -1,7 +1,6 @@
 ﻿using Logic.Models;
 using Logic.Saver;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Logic.Controllers
@@ -21,11 +20,11 @@ namespace Logic.Controllers
 
         public void Add(string service, string login, string pass)
         {
-            var acc = Accounts.Exists(a => (a.Service == service) && (a.Login == login));
+            bool IsAccountExists = Accounts.Exists(a => (a.Service == service) && (a.Login == login));
 
-            if (!acc)
+            if (!IsAccountExists)
             {
-                var user = new UserData(service, login, pass);
+                UserData user = new UserData(service, login, pass);
                 Accounts.Add(user);
                 Save();
 
@@ -37,20 +36,26 @@ namespace Logic.Controllers
             }
         }
 
-        public void Get(string service)
+        public Dictionary<string, string> Get(string service)
         {
-            bool IsAccountsExist = Accounts.Exists(l => l.Service == service);
+            bool IsAccountsExists = Accounts.Exists(l => l.Service == service);
 
-            if (!IsAccountsExist) Message("Ошибка: Аккаунтов этого сервиса нет в базе данных");
+            if (!IsAccountsExists)
+            {
+                Message("Ошибка: Аккаунтов этого сервиса нет в базе данных");
+                return new Dictionary<string, string>();
+            }
             else
             {
-                var accounts = Accounts.Where(l => l.Service == service);
+                IEnumerable<UserData> accounts = Accounts.Where(l => l.Service == service);
 
-                Message($"Все аккаунты сервиса {service}:");
-                foreach (var acc in accounts)
+                Dictionary<string, string> accountsDict = new Dictionary<string, string>();
+                foreach (UserData acc in accounts)
                 {
-                    Message($"{acc.Login} - {acc.Password}");
+                    accountsDict.Add(acc.Login, acc.Password);
                 }
+
+                return accountsDict;
             }
         }
 
@@ -68,6 +73,8 @@ namespace Logic.Controllers
             {
                 Message("Такого аккаунта нет в базе данных");
             }
+
+            Save();
         }
 
         public void Save()

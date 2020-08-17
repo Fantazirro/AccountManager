@@ -123,6 +123,9 @@
   <data name="ChooseAction" xml:space="preserve">
     <value>Выберите действие:</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="DeleteAccount" xml:space="preserve">
     <value>Удалить аккаунт</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Выход</value>
+  </data>
+  <data name="Get" xml:space="preserve">
+    <value>Получить</value>
   </data>
   <data name="GetAccounts" xml:space="preserve">
     <value>Получить данные аккаунтов</value>

@@ -1,6 +1,7 @@
 ﻿using Logic.Controllers;
 using System;
 using Logic.Resources;
+using System.Collections.Generic;
 
 namespace ConsoleInterface
 {
@@ -22,7 +23,7 @@ namespace ConsoleInterface
                 Console.WriteLine($"4. {Text.Exit}");
                 Console.Write(Text.Enter);
 
-                var answer = Console.ReadKey().Key;
+                ConsoleKey answer = Console.ReadKey().Key;
                 Console.Clear();
 
                 if (answer == ConsoleKey.D1)
@@ -32,7 +33,7 @@ namespace ConsoleInterface
                 }
                 else if (answer == ConsoleKey.D2)
                 {
-                    LoadAccounts();
+                    GetAccounts();
                     Console.Clear();
                 }
                 else if (answer == ConsoleKey.D3)
@@ -67,13 +68,18 @@ namespace ConsoleInterface
             Console.ReadKey();
         }
 
-        private void LoadAccounts()
+        private void GetAccounts()
         {
             Console.Write(Text.EnterService);
             string service = Console.ReadLine();
 
             Console.Clear();
-            controller.Get(service);
+            Console.WriteLine($"Все аккаунты сервиса {service}:");
+            Dictionary<string, string> accounts = controller.Get(service);
+            foreach (var item in accounts)
+            {
+                Console.WriteLine($"{item.Key} - {item.Value}");
+            }
 
             Console.WriteLine($"\n{Text.PressAnyKey}");
             Console.ReadKey();
