@@ -24,6 +24,11 @@ namespace Logic.Controllers
 
             if (!IsAccountExists)
             {
+                if(string.IsNullOrEmpty(service) || string.IsNullOrEmpty(login) || string.IsNullOrEmpty(pass))
+                {
+                    Message("Переданные данные некорректны");
+                    return;
+                }
                 UserData user = new UserData(service, login, pass);
                 Accounts.Add(user);
                 Save();

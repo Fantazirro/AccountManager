@@ -2,7 +2,6 @@
 using Logic.Resources;
 using Logic.Controllers;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using WPFInterface.Models;
 
 namespace WPFInterface
@@ -13,7 +12,7 @@ namespace WPFInterface
     public partial class MainWindow : Window
     {
         Controller controller = new Controller();
-        string currentService = string.Empty;
+        string currentService = null;
 
         public MainWindow()
         {
@@ -59,25 +58,30 @@ namespace WPFInterface
 
         private void DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
+            int currentCount = dataTable.Items.Count;
             string service = deleteServiceField.Text;
             string login = deleteLoginField.Text;           
            
             controller.Delete(service, login);
 
-            if (currentService == service) GetAccountsData(service);
+            if (currentService == service)
+            {
+                GetAccountsData(service);
+                if (dataTable.Items.Count == currentCount) dataTable.Items.Clear();
+            }
         }
 
         private void GetAccount_Click(object sender, RoutedEventArgs e)
         {
             string service = getServiceField.Text;
-            currentService = service;
-
             GetAccountsData(service);      
         }
 
         private void GetAccountsData(string service)
         {
             Dictionary<string, string> accounts = controller.Get(service);
+            if (accounts.Count == 0) return;
+            currentService = service;
 
             dataTable.Items.Clear();
             foreach (var item in accounts)
